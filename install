@@ -1,0 +1,51 @@
+#!/bin/bash
+
+if ! [ -e ".done" ]; then
+	echo "Run 'do' first"
+	exit 1
+fi
+
+if [ `id -u` -ne 0 ]; then
+	echo "Current user is not root"
+	exit 1
+fi
+
+mkdir -p /usr/lib
+
+if [ $? -ne 0 ]; then
+	echo "Failed to create /usr/lib"
+	exit 1
+fi
+
+mkdir -p /usr/include/fsop/
+
+if [ $? -ne 0 ]; then
+	echo "Failed to create /usr/include/fsop"
+	exit 1
+fi
+
+cp src/libfsop.so /usr/lib/
+
+if [ $? -ne 0 ]; then
+	echo "Failed to copy src/libfsop.so to /usr/lib"
+	exit 1;
+fi
+
+cp src/*.h /usr/include/fsop/
+
+if [ $? -ne 0 ]; then
+	echo "Failed to copy src/*.h to /usr/include/fsop"
+	exit 1;
+fi
+
+ldconfig
+
+if [ $? -ne 0 ]; then
+	echo "Failed to execute ldconfig"
+	exit 1;
+fi
+
+echo "Installation complete."
+
+exit 0
+
