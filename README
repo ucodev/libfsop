@@ -5,17 +5,22 @@
   Home page: http://www.ucodev.org
 
 
-2. Version
+2. Briefing
+
+  libfsop is an abstraction layer for file system operations. It implements simplified file and directory copy/move, send and receive files through opened file descriptors (for networking transfers) and recursive, event driven directory walking.
+
+
+3. Version
 
   $ cat VERSION
 
 
-3. Documentation
+4. Documentation
 
   $ cat doc/overview.txt
 
 
-4. Build and Install
+5. Build and Install
 
   # ./do
   # ./install
