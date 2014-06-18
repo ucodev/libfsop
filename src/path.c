@@ -3,9 +3,9 @@
  * @brief File System Operations Library (libfsop)
  *        Path Operations Interface
  *
- * Date: 03-11-2012
+ * Date: 18-06-2014
  * 
- * Copyright 2012 Pedro A. Hortas (pah@ucodev.org)
+ * Copyright 2012-2014 Pedro A. Hortas (pah@ucodev.org)
  *
  * This file is part of libfsop.
  *
@@ -52,5 +52,50 @@ int fsop_path_isreg(const char *path) {
 		return -1;
 
 	return S_ISREG(st.st_mode);
+}
+
+int fsop_path_ischr(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return S_ISCHR(st.st_mode);
+}
+
+int fsop_path_isblk(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return S_ISBLK(st.st_mode);
+}
+
+int fsop_path_isfifo(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return S_ISFIFO(st.st_mode);
+}
+
+int fsop_path_islnk(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return S_ISLNK(st.st_mode);
+}
+
+int fsop_path_issock(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return S_ISSOCK(st.st_mode);
 }
 
