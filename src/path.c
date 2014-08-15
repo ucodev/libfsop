@@ -3,7 +3,7 @@
  * @brief File System Operations Library (libfsop)
  *        Path Operations Interface
  *
- * Date: 18-06-2014
+ * Date: 15-08-2014
  * 
  * Copyright 2012-2014 Pedro A. Hortas (pah@ucodev.org)
  *
@@ -97,5 +97,86 @@ int fsop_path_issock(const char *path) {
 		return -1;
 
 	return S_ISSOCK(st.st_mode);
+}
+
+int fsop_path_read_other(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return (st.st_mode & S_IROTH);
+}
+
+int fsop_path_read_group(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return (st.st_mode & S_IRGRP);
+}
+
+int fsop_path_read_owner(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return (st.st_mode & S_IRUSR);
+}
+
+int fsop_path_write_other(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return (st.st_mode & S_IWOTH);
+}
+
+int fsop_path_write_group(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return (st.st_mode & S_IWGRP);
+}
+
+int fsop_path_write_owner(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return (st.st_mode & S_IWUSR);
+}
+
+int fsop_path_exec_other(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return (st.st_mode & S_IXOTH);
+}
+
+int fsop_path_exec_group(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return (st.st_mode & S_IXGRP);
+}
+
+int fsop_path_exec_owner(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return (st.st_mode & S_IXUSR);
 }
 
