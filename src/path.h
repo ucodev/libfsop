@@ -27,6 +27,10 @@
 #ifndef FSOP_PATH_H
 #define FSOP_PATH_H
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 /* Prototypes / Interface */
 
 /**
