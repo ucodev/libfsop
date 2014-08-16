@@ -3,7 +3,7 @@
  * @brief File System Operations Library (libfsop)
  *        Path Operations Interface
  *
- * Date: 15-08-2014
+ * Date: 16-08-2014
  * 
  * Copyright 2012-2014 Pedro A. Hortas (pah@ucodev.org)
  *
@@ -178,5 +178,32 @@ int fsop_path_exec_owner(const char *path) {
 		return -1;
 
 	return (st.st_mode & S_IXUSR);
+}
+
+mode_t fsop_path_mode(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return st.st_mode;
+}
+
+uid_t fsop_path_owner(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return st.st_uid;
+}
+
+gid_t fsop_path_group(const char *path) {
+	struct stat st;
+
+	if (stat(path, &st) < 0)
+		return -1;
+
+	return st.st_gid;
 }
 

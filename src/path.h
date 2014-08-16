@@ -3,7 +3,7 @@
  * @brief File System Operations Library (libfsop)
  *        Path Operations Interface Header
  *
- * Date: 15-08-2014
+ * Date: 16-08-2014
  * 
  * Copyright 2012-2014 Pedro A. Hortas (pah@ucodev.org)
  *
@@ -141,7 +141,8 @@ int fsop_path_issock(const char *path);
  *   The path to be checked.
  *
  * @return
- *   If the path is a named socket, 1 is returned. Otherwise, 0 is returned.
+ *   If the path has the +r mode for others, 1 is returned. Otherwise, 0 is returned.
+ *   On error, -1 is returned.
  *
  */
 int fsop_path_read_other(const char *path);
@@ -154,7 +155,8 @@ int fsop_path_read_other(const char *path);
  *   The path to be checked.
  *
  * @return
- *   If the path is a named socket, 1 is returned. Otherwise, 0 is returned.
+ *   If the path has the +r mode for the group, 1 is returned. Otherwise, 0 is returned.
+ *   On error, -1 is returned.
  *
  */
 int fsop_path_read_group(const char *path);
@@ -167,7 +169,8 @@ int fsop_path_read_group(const char *path);
  *   The path to be checked.
  *
  * @return
- *   If the path is a named socket, 1 is returned. Otherwise, 0 is returned.
+ *   If the path has the +r mode for the owner, 1 is returned. Otherwise, 0 is returned.
+ *   On error, -1 is returned.
  *
  */
 int fsop_path_read_owner(const char *path);
@@ -180,7 +183,8 @@ int fsop_path_read_owner(const char *path);
  *   The path to be checked.
  *
  * @return
- *   If the path is a named socket, 1 is returned. Otherwise, 0 is returned.
+ *   If the path has the +w mode for others, 1 is returned. Otherwise, 0 is returned.
+ *   On error, -1 is returned.
  *
  */
 int fsop_path_write_other(const char *path);
@@ -193,7 +197,8 @@ int fsop_path_write_other(const char *path);
  *   The path to be checked.
  *
  * @return
- *   If the path is a named socket, 1 is returned. Otherwise, 0 is returned.
+ *   If the path has the +w mode for the group, 1 is returned. Otherwise, 0 is returned.
+ *   On error, -1 is returned.
  *
  */
 int fsop_path_write_group(const char *path);
@@ -206,7 +211,8 @@ int fsop_path_write_group(const char *path);
  *   The path to be checked.
  *
  * @return
- *   If the path is a named socket, 1 is returned. Otherwise, 0 is returned.
+ *   If the path has the +w mode for the owner, 1 is returned. Otherwise, 0 is returned.
+ *   On error, -1 is returned.
  *
  */
 int fsop_path_write_owner(const char *path);
@@ -219,7 +225,8 @@ int fsop_path_write_owner(const char *path);
  *   The path to be checked.
  *
  * @return
- *   If the path is a named socket, 1 is returned. Otherwise, 0 is returned.
+ *   If the path has the +x mode for others, 1 is returned. Otherwise, 0 is returned.
+ *   On error, -1 is returned.
  *
  */
 int fsop_path_exec_other(const char *path);
@@ -232,7 +239,8 @@ int fsop_path_exec_other(const char *path);
  *   The path to be checked.
  *
  * @return
- *   If the path is a named socket, 1 is returned. Otherwise, 0 is returned.
+ *   If the path has the +x mode for the group, 1 is returned. Otherwise, 0 is returned.
+ *   On error, -1 is returned.
  *
  */
 int fsop_path_exec_group(const char *path);
@@ -245,11 +253,50 @@ int fsop_path_exec_group(const char *path);
  *   The path to be checked.
  *
  * @return
- *   If the path is a named socket, 1 is returned. Otherwise, 0 is returned.
+ *   If the path has the +x mode for the owner, 1 is returned. Otherwise, 0 is returned.
+ *   On error, -1 is returned.
  *
  */
 int fsop_path_exec_owner(const char *path);
 
+/**
+ * @brief
+ *   Returns the 'path' mode.
+ *
+ * @param path
+ *   The path to be checked.
+ *
+ * @return
+ *   If the path exists, its mode is returned. Otherwise, -1 is returned.
+ *
+ */
+mode_t fsop_path_mode(const char *path);
+
+/**
+ * @brief
+ *   Returns the 'path' owner id.
+ *
+ * @param path
+ *   The path to be checked.
+ *
+ * @return
+ *   If the path exists, its owner uid is returned. Otherwise, -1 is returned.
+ *
+ */
+uid_t fsop_path_owner(const char *path);
+
+/**
+ * @brief
+ *   Returns the 'path' group id.
+ *
+ * @param path
+ *   The path to be checked.
+ *
+ * @return
+ *   If the path exists, its group id is returned. Otherwise, -1 is returned.
+ *
+ */
+gid_t fsop_path_group(const char *path);
 
 #endif
 
