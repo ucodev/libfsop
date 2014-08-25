@@ -3,7 +3,7 @@
  * @brief File System Operations Library (libfsop)
  *        Directory Operations Interface
  *
- * Date: 16-05-2014
+ * Date: 25-08-2014
  * 
  * Copyright 2012-2014 Pedro A. Hortas (pah@ucodev.org)
  *
@@ -86,7 +86,7 @@ int fsop_pmkdir(const char *path, mode_t mode) {
 	while ((ptr = strtok_r(NULL, "/", &saveptr))) {
 		len += strlen(ptr) + 2;
 
-		if (!(cpath = realloc(cpath, len)))
+		if (!(cpath = mm_realloc(cpath, len)))
 			goto _error;
 
 		strcat(cpath, "/");
