@@ -65,13 +65,16 @@ static int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result) {
 	WaitForSingleObject(_mutex_readdir, INFINITE);
 	
 	if (!(*result = readdir(dirp))) {
-		ReleaseMutex(_mutex_readdir);
-		return -1;
+		if (errno) {
+			ReleaseMutex(_mutex_readdir);
+			return -1;
+		}
 	}
 	
 	ReleaseMutex(_mutex_readdir);
 	
-	memcpy(entry, *result, sizeof(struct dirent));
+	if (entry)
+		memcpy(entry, *result, sizeof(struct dirent));
 	
 	return 0;
 }
