@@ -3,3 +3,16 @@ CursorCol=20
 CursorRow=19
 TopLine=24
 LeftChar=1
+[Editors]
+Order=1
+Focused=1
+[Editor_1]
+CursorCol=1
+CursorRow=79
+TopLine=70
+LeftChar=1
+[Editor_5]
+CursorCol=15
+CursorRow=42
+TopLine=23
+LeftChar=1

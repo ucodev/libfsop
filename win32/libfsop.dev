@@ -3,7 +3,7 @@ FileName=libfsop.dev
 Name=libfsop
 UnitCount=10
 Type=3
-Ver=1
+Ver=2
 ObjFiles=
 Includes=../include
 Libs=
@@ -12,7 +12,7 @@ ResourceIncludes=
 MakeIncludes=
 Compiler=-DBUILDING_DLL=1_@@_-DCOMPILE_WIN32=1_@@_
 CppCompiler=-DBUILDING_DLL=1_@@_-DCOMPILE_WIN32=1_@@_
-Linker=--no-export-all-symbols --add-stdcall-alias_@@_
+Linker=
 IsCpp=0
 Icon=
 ExeOutput=
@@ -27,7 +27,9 @@ CustomMakefile=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
-CompilerSettings=0000000000000000000000
+CompilerSettings=0000000000000000000000000
+LogOutput=
+LogOutputEnabled=0
 
 [Unit1]
 FileName=dllmain.c
@@ -137,7 +139,7 @@ Build=1
 LanguageID=1033
 CharsetID=1252
 CompanyName=
-FileVersion=
+FileVersion=0.1.1.1
 FileDescription=Developed using the Dev-C++ IDE
 InternalName=
 LegalCopyright=
@@ -146,4 +148,5 @@ OriginalFilename=
 ProductName=
 ProductVersion=
 AutoIncBuildNr=0
+SyncProduct=0
 
