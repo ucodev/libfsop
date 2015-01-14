@@ -41,7 +41,45 @@
 #include "dir.h"
 #include "file.h"
 
+#ifdef COMPILE_WIN32
+/* 
+ * WARNING and TODO:
+ *
+ *  - This is a fast hack to implement a readdir_r() on windows (MinGW).
+ *  - This is NOT totally safe, as calls to readdir() outside of libfsop
+ *    will interfere with this implementation.
+ *  - A new version of this function based on FindNextFile() must be
+ *    implemented.
+ *
+ */
 
+static HANDLE _mutex_readdir;
+static int _mutex_readdir_initialized = 0;
+
+static int readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result) {
+	if (!_mutex_readdir_initialized) {
+		_mutex_readdir = CreateMutex(NULL, FALSE, NULL);
+		_mutex_readdir_initialized = 1;
+	}
+	
+	WaitForSingleObject(_mutex_readdir, INFINITE);
+	
+	if (!(*result = readdir(dirp))) {
+		ReleaseMutex(_mutex_readdir);
+		return -1;
+	}
+	
+	ReleaseMutex(_mutex_readdir);
+	
+	memcpy(entry, *result, sizeof(struct dirent));
+	
+	return 0;
+}
+#endif
+
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_pmkdir(const char *path, mode_t mode) {
 	char *lpath = NULL, *cpath = NULL, *ptr = NULL, *saveptr = NULL;
 	size_t len = 0;
@@ -56,7 +94,11 @@ int fsop_pmkdir(const char *path, mode_t mode) {
 		int ret = 0;
 
 		if (!fsop_path_exists(lpath)) {
+#ifdef COMPILE_WIN32
+			ret = mkdir(lpath);
+#else
 			ret = mkdir(lpath, mode);
+#endif
 			errsv = errno;
 		}
 
@@ -80,7 +122,11 @@ int fsop_pmkdir(const char *path, mode_t mode) {
 	strcat(cpath, ptr);
 
 	if (!fsop_path_exists(cpath)) {
+#ifdef COMPILE_WIN32
+		if (mkdir(cpath) < 0)
+#else
 		if (mkdir(cpath, mode) < 0)
+#endif
 			goto _error;
 	}
 
@@ -94,7 +140,11 @@ int fsop_pmkdir(const char *path, mode_t mode) {
 		strcat(cpath, ptr);
 
 		if (!fsop_path_exists(cpath)) {
+#ifdef COMPILE_WIN32
+			if (mkdir(cpath) < 0)
+#else
 			if (mkdir(cpath, mode) < 0)
+#endif
 				goto _error;
 		}
 	}
@@ -111,6 +161,9 @@ _error:
 	return -1;
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_walkdir(
 		const char *dir,
 		const char *prefix,
@@ -132,7 +185,11 @@ int fsop_walkdir(
 	if (!(sdp = opendir(dir)))
 		return -1;
 
+#ifdef COMPILE_WIN32
+	if (!(entryp = mm_alloc(offsetof(struct dirent, d_name) + CONFIG_PATH_MAX + 1)))
+#else
 	if (!(entryp = mm_alloc(offsetof(struct dirent, d_name) + pathconf(dir, _PC_NAME_MAX) + 1)))
+#endif
 		return -1;
 
 	if (action(FSOP_WALK_PREORDER, dir, prefix, arg) < 0)
@@ -216,6 +273,9 @@ static int _cpdir_action(
 	return 0;
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_cpdir(const char *src, const char *dest, size_t block) {
 	return fsop_walkdir(src, dest, &_cpdir_action, &block);
 }		
@@ -248,10 +308,16 @@ static int _rmdir_action(
 	return 0;
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_rmdir(const char *dir) {
 	return fsop_walkdir(dir, NULL, &_rmdir_action, NULL);
 }		
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_mvdir(const char *src, const char *dest, size_t block) {
 	if (!rename(src, dest))
 		return 0;

@@ -85,6 +85,9 @@ _error2:
 	return -1;
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 ssize_t fsop_frecv(int sfd, const char *file, mode_t mode, size_t block) {
 	int dfd = 0;
 	ssize_t count = 0;
@@ -102,6 +105,9 @@ ssize_t fsop_frecv(int sfd, const char *file, mode_t mode, size_t block) {
 	return count;
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 ssize_t fsop_fsend(int dfd, const char *file, size_t block) {
 	int sfd = 0;
 	ssize_t count = 0;
@@ -117,6 +123,9 @@ ssize_t fsop_fsend(int dfd, const char *file, size_t block) {
 	return count;
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 ssize_t fsop_cp(const char *src, const char *dest, size_t block) {
 	int dfd = 0;
 	ssize_t count = 0;
@@ -137,6 +146,9 @@ ssize_t fsop_cp(const char *src, const char *dest, size_t block) {
 	return count;
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 ssize_t fsop_mv(const char *from, const char *to, size_t block) {
 	ssize_t count = 0;
 	struct stat st;
@@ -157,6 +169,9 @@ ssize_t fsop_mv(const char *from, const char *to, size_t block) {
 	return count;
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_unlink(const char *file) {
 	return unlink(file);
 }

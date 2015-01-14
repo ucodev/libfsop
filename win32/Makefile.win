@@ -1,0 +1,42 @@
+# Project: libfsop
+# Makefile created by Dev-C++ 5.8.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = dllmain.o ../src/dir.o ../src/file.o ../src/mm.o ../src/path.o
+LINKOBJ  = dllmain.o ../src/dir.o ../src/file.o ../src/mm.o ../src/path.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"../include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include/c++" -I"../include"
+BIN      = libfsop.dll
+CXXFLAGS = $(CXXINCS) -DBUILDING_DLL=1 -DCOMPILE_WIN32=1
+CFLAGS   = $(INCS) -DBUILDING_DLL=1 -DCOMPILE_WIN32=1
+RM       = rm.exe -f
+DEF      = liblibfsop.def
+STATIC   = liblibfsop.a
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN) $(DEF) $(STATIC)
+
+$(BIN): $(LINKOBJ)
+	$(CC) -shared $(LINKOBJ) -o $(BIN) $(LIBS) -Wl,--output-def,$(DEF),--out-implib,$(STATIC),--add-stdcall-alias
+
+dllmain.o: dllmain.c
+	$(CC) -c dllmain.c -o dllmain.o $(CFLAGS)
+
+../src/dir.o: ../src/dir.c
+	$(CC) -c ../src/dir.c -o ../src/dir.o $(CFLAGS)
+
+../src/file.o: ../src/file.c
+	$(CC) -c ../src/file.c -o ../src/file.o $(CFLAGS)
+
+../src/mm.o: ../src/mm.c
+	$(CC) -c ../src/mm.c -o ../src/mm.o $(CFLAGS)
+
+../src/path.o: ../src/path.c
+	$(CC) -c ../src/path.c -o ../src/path.o $(CFLAGS)

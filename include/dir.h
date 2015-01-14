@@ -3,9 +3,9 @@
  * @brief File System Operations Library (libfsop)
  *        Directory Operations Interface Header
  *
- * Date: 03-11-2012
+ * Date: 14-01-2015
  * 
- * Copyright 2012 Pedro A. Hortas (pah@ucodev.org)
+ * Copyright 2012-2015 Pedro A. Hortas (pah@ucodev.org)
  *
  * This file is part of libfsop.
  *
@@ -29,6 +29,8 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+
+#include "config.h"
 
 /* Directory Walk Order */
 enum {
@@ -56,6 +58,9 @@ enum {
  *   appropriately.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_pmkdir(const char *path, mode_t mode);
 
 /**
@@ -90,7 +95,10 @@ int fsop_pmkdir(const char *path, mode_t mode);
  *   On success, zero is returned. On error, -1 is returned and errno is set
  *   appropriately.
  *
- */   
+ */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_walkdir(
 		const char *dir,
 		const char *prefix,
@@ -119,6 +127,9 @@ int fsop_walkdir(
  *   appropriately.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_cpdir(const char *src, const char *dest, size_t block);
 
 /**
@@ -140,6 +151,9 @@ int fsop_cpdir(const char *src, const char *dest, size_t block);
  *   appropriately.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_mvdir(const char *src, const char *dest, size_t block);
 
 /**
@@ -154,6 +168,9 @@ int fsop_mvdir(const char *src, const char *dest, size_t block);
  *   appropriately.
  * 
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_rmdir(const char *dir);
 
 #endif

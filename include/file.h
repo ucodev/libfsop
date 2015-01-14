@@ -3,9 +3,9 @@
  * @brief File System Operations Library (libfsop)
  *        File Operations Interface Header
  *
- * Date: 03-11-2012
+ * Date: 14-01-2015
  * 
- * Copyright 2012 Pedro A. Hortas (pah@ucodev.org)
+ * Copyright 2012-2015 Pedro A. Hortas (pah@ucodev.org)
  *
  * This file is part of libfsop.
  *
@@ -30,6 +30,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include "config.h"
+
 
 /* Prototypes / Interface */
 
@@ -51,6 +53,9 @@
  *   appropriately.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 ssize_t fsop_cp(const char *src, const char *dest, size_t block);
 
 /**
@@ -71,6 +76,9 @@ ssize_t fsop_cp(const char *src, const char *dest, size_t block);
  *   appropriately.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 ssize_t fsop_mv(const char *from, const char *to, size_t block);
 
 /**
@@ -96,6 +104,9 @@ ssize_t fsop_mv(const char *from, const char *to, size_t block);
  * @see fsop_fsend()
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 ssize_t fsop_frecv(int sfd, const char *file, mode_t mode, size_t block);
 
 /**
@@ -117,6 +128,9 @@ ssize_t fsop_frecv(int sfd, const char *file, mode_t mode, size_t block);
  *   appropriately.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 ssize_t fsop_fsend(int dfd, const char *file, size_t block);
 
 /**
@@ -131,6 +145,9 @@ ssize_t fsop_fsend(int dfd, const char *file, size_t block);
  *   appropriately.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_unlink(const char *file);
 
 #endif

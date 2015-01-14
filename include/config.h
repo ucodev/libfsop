@@ -27,5 +27,23 @@
 #ifndef FSOP_CONFIG_H
 #define FSOP_CONFIG_H
 
+#ifdef COMPILE_WIN32
+ #include <windows.h>
+
+ #if BUILDING_DLL
+  #define DLLIMPORT __declspec (dllexport)
+ #else /* Not BUILDING_DLL */
+  #define DLLIMPORT __declspec (dllimport)
+ #endif /* Not BUILDING_DLL */
+ 
+ #define strtok_r           strtok_s
+ #define unlink             _unlink
+ #define stat               _stat
+ #define mkdir              _mkdir
+ 
+ #define CONFIG_PATH_MAX    260
+#endif
+
+
 #endif
 

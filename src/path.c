@@ -32,11 +32,16 @@
 #include "config.h"
 #include "path.h"
 
-
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_path_exists(const char *path) {
 	return !stat(path, (struct stat [1]) { });
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_path_isdir(const char *path) {
 	struct stat st;
 
@@ -46,6 +51,9 @@ int fsop_path_isdir(const char *path) {
 	return S_ISDIR(st.st_mode);
 }
 
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_path_isreg(const char *path) {
 	struct stat st;
 
@@ -55,6 +63,7 @@ int fsop_path_isreg(const char *path) {
 	return S_ISREG(st.st_mode);
 }
 
+#ifndef COMPILE_WIN32
 int fsop_path_ischr(const char *path) {
 	struct stat st;
 
@@ -207,4 +216,4 @@ gid_t fsop_path_group(const char *path) {
 
 	return st.st_gid;
 }
-
+#endif

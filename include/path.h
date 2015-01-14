@@ -3,9 +3,9 @@
  * @brief File System Operations Library (libfsop)
  *        Path Operations Interface Header
  *
- * Date: 16-08-2014
+ * Date: 14-01-2015
  * 
- * Copyright 2012-2014 Pedro A. Hortas (pah@ucodev.org)
+ * Copyright 2012-2015 Pedro A. Hortas (pah@ucodev.org)
  *
  * This file is part of libfsop.
  *
@@ -31,6 +31,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include "config.h"
+
 /* Prototypes / Interface */
 
 /**
@@ -44,6 +46,9 @@
  *   If the path exists, 1 is returned. Otherwise, 0 is returned.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_path_exists(const char *path);
 
 /**
@@ -57,6 +62,9 @@ int fsop_path_exists(const char *path);
  *   If the path is a directory, 1 is returned. Otherwise, 0 is returned.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_path_isdir(const char *path);
 
 /**
@@ -70,8 +78,12 @@ int fsop_path_isdir(const char *path);
  *   If the path is a regular file, 1 is returned. Otherwise, 0 is returned.
  *
  */
+#ifdef COMPILE_WIN32
+DLLIMPORT
+#endif
 int fsop_path_isreg(const char *path);
 
+#ifndef COMPILE_WIN32
 /**
  * @brief
  *   Checks if 'path' is a character device.
@@ -301,6 +313,8 @@ uid_t fsop_path_owner(const char *path);
  *
  */
 gid_t fsop_path_group(const char *path);
+
+#endif
 
 #endif
 
