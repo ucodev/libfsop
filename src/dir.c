@@ -94,11 +94,7 @@ int fsop_pmkdir(const char *path, mode_t mode) {
 		int ret = 0;
 
 		if (!fsop_path_exists(lpath)) {
-#ifdef COMPILE_WIN32
-			ret = mkdir(lpath);
-#else
 			ret = mkdir(lpath, mode);
-#endif
 			errsv = errno;
 		}
 
@@ -122,11 +118,7 @@ int fsop_pmkdir(const char *path, mode_t mode) {
 	strcat(cpath, ptr);
 
 	if (!fsop_path_exists(cpath)) {
-#ifdef COMPILE_WIN32
-		if (mkdir(cpath) < 0)
-#else
 		if (mkdir(cpath, mode) < 0)
-#endif
 			goto _error;
 	}
 
@@ -140,11 +132,7 @@ int fsop_pmkdir(const char *path, mode_t mode) {
 		strcat(cpath, ptr);
 
 		if (!fsop_path_exists(cpath)) {
-#ifdef COMPILE_WIN32
-			if (mkdir(cpath) < 0)
-#else
 			if (mkdir(cpath, mode) < 0)
-#endif
 				goto _error;
 		}
 	}

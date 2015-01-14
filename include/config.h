@@ -36,10 +36,10 @@
   #define DLLIMPORT __declspec (dllimport)
  #endif /* Not BUILDING_DLL */
  
- #define strtok_r           strtok_s
- #define unlink             _unlink
- #define stat               _stat
- #define mkdir              _mkdir
+ #define strtok_r	strtok_s
+ #define unlink		_unlink
+ #define stat		_stat
+ #define mkdir(a, b)	_mkdir(a)
  
  #define CONFIG_PATH_MAX    260
 #endif
