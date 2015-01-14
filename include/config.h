@@ -1,7 +1,7 @@
 /**
- * @file mm.c
+ * @file config.h
  * @brief File System Operations Library (libfsop)
- *        Memory Management interface
+ *        Configuration Header
  *
  * Date: 14-01-2015
  * 
@@ -24,46 +24,8 @@
  *
  */
 
-#include <stdlib.h>
+#ifndef FSOP_CONFIG_H
+#define FSOP_CONFIG_H
 
-#include "config.h"
-
-#ifdef USE_LIBFSMA
- #include <fsma/fsma.h>
 #endif
-
-void *mm_alloc(size_t size) {
-	return
-#ifdef USE_LIBFSMA
-	fsma_malloc(size);
-#else
-	malloc(size);
-#endif
-}
-
-void mm_free(void *ptr) {
-#ifdef USE_LIBFSMA
-	fsma_free(ptr);
-#else
-	free(ptr);
-#endif
-}
-
-void *mm_realloc(void *ptr, size_t size) {
-	return
-#ifdef USE_LIBFSMA
-	fsma_realloc(ptr, size);
-#else
-	realloc(ptr, size);
-#endif
-}
-
-void *mm_calloc(size_t nmemb, size_t size) {
-	return
-#ifdef USE_LIBFSMA
-	fsma_calloc(nmemb, size);
-#else
-	calloc(nmemb, size);
-#endif
-}
 
