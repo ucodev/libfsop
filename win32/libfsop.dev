@@ -20,7 +20,7 @@ ObjectOutput=
 OverrideOutput=0
 OverrideOutputName=libfsop.dll
 HostApplication=
-Folders=
+Folders=include,src
 CommandLine=
 UseCustomMakefile=0
 CustomMakefile=
@@ -44,7 +44,7 @@ BuildCmd=
 [Unit2]
 FileName=..\src\dir.c
 CompileCpp=0
-Folder=libfsop
+Folder=src
 Compile=1
 Link=1
 Priority=1000
@@ -54,7 +54,7 @@ BuildCmd=
 [Unit3]
 FileName=..\src\file.c
 CompileCpp=0
-Folder=libfsop
+Folder=src
 Compile=1
 Link=1
 Priority=1000
@@ -64,7 +64,7 @@ BuildCmd=
 [Unit4]
 FileName=..\src\mm.c
 CompileCpp=0
-Folder=libfsop
+Folder=src
 Compile=1
 Link=1
 Priority=1000
@@ -74,7 +74,7 @@ BuildCmd=
 [Unit5]
 FileName=..\src\path.c
 CompileCpp=0
-Folder=libfsop
+Folder=src
 Compile=1
 Link=1
 Priority=1000
@@ -84,7 +84,7 @@ BuildCmd=
 [Unit6]
 FileName=..\include\config.h
 CompileCpp=0
-Folder=libfsop
+Folder=include
 Compile=1
 Link=1
 Priority=1000
@@ -94,7 +94,7 @@ BuildCmd=
 [Unit7]
 FileName=..\include\dir.h
 CompileCpp=0
-Folder=libfsop
+Folder=include
 Compile=1
 Link=1
 Priority=1000
@@ -104,7 +104,7 @@ BuildCmd=
 [Unit8]
 FileName=..\include\file.h
 CompileCpp=0
-Folder=libfsop
+Folder=include
 Compile=1
 Link=1
 Priority=1000
@@ -114,7 +114,7 @@ BuildCmd=
 [Unit9]
 FileName=..\include\mm.h
 CompileCpp=0
-Folder=libfsop
+Folder=include
 Compile=1
 Link=1
 Priority=1000
@@ -124,7 +124,7 @@ BuildCmd=
 [Unit10]
 FileName=..\include\path.h
 CompileCpp=0
-Folder=libfsop
+Folder=include
 Compile=1
 Link=1
 Priority=1000
