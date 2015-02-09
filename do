@@ -1,16 +1,12 @@
 #!/bin/bash
 
-if [ -e "/usr/bin/clang" ]; then
-	echo "/usr/bin/clang" > .compiler
-elif [ -e "/usr/bin/gcc" ]; then
-	echo "/usr/bin/gcc" > .compiler
-elif [ -e "/usr/bin/cc" ]; then
-	echo "/usr/bin/cc" > .compiler
-else
-	echo "No suitable compiler found."
-	exit 1
-fi
+## Detect compiler ##
+. ./lib/sh/compiler.inc
 
+## Detect architecture ##
+. ./lib/sh/arch.inc
+
+## Options ##
 if [ $# -eq 1 ]; then
 	if [ "${1}" == "fsma" ]; then
 		echo "-DUSE_LIBFSMA" > .ecflags
@@ -21,6 +17,7 @@ else
 	touch .elflags
 fi
 
+## Build ##
 make
 
 if [ $? -ne 0 ]; then

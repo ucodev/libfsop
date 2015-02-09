@@ -3,6 +3,8 @@
 make clean
 
 rm -f .compiler
+rm -f .target
+rm -f .archflags
 rm -f .ecflags
 rm -f .elflags
 rm -f .done
