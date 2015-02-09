@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ## Detect compiler ##
 . ./lib/sh/compiler.inc
