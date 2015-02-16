@@ -1,6 +1,6 @@
 all:
-	make -C src/
+	cd src && make && cd ..
 
 clean:
-	make -C src/ clean
+	cd src && make clean && cd ..
 
