@@ -1,11 +1,11 @@
 CC=`cat ../.compiler`
 INCLUDEDIRS=-I../include
-CCFLAGS=-fPIC -g -O2 -fstrict-aliasing -Wall -Werror
+CCFLAGS=
 ECFLAGS=`cat ../.ecflags`
 LDFLAGS=-shared -s
 ELFLAGS=`cat ../.elflags`
 ARCHFLAGS=`cat ../.archflags`
-TARGET=libfsop.so
+TARGET=libfsop.`cat ../.extlib`
 
 all:
 	${CC} ${INCLUDEDIRS} ${CCFLAGS} ${ECFLAGS} ${ARCHFLAGS} -c dir.c

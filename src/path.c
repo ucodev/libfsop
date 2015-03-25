@@ -36,7 +36,7 @@
 DLLIMPORT
 #endif
 int fsop_path_exists(const char *path) {
-	return !stat(path, (struct stat [1]) { });
+	return !stat(path, (struct stat [1]) { { 0 } });
 }
 
 #ifdef COMPILE_WIN32
