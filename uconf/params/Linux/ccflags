@@ -1,1 +1,1 @@
--pthread -fstack-protector-all -Wstack-protector
+-std=gnu99 -pthread -fstack-protector-all -Wstack-protector
